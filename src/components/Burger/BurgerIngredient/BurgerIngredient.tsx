@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import classes from './BurgerIngredient.css';
+import { BurgerIngredientInterface } from '../../../interfaces/BurgerIngredientInterface';
 // import PropTypes from 'prop-types';
 // npm install --save prop-types
 
-class BurgerIngredient extends Component {
+class BurgerIngredient extends Component<BurgerIngredientInterface> {
     render() {
         let ingredient:JSX.Element = null!;
 
