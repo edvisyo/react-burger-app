@@ -19,7 +19,11 @@ class BuildControls extends Component<BuildControlsInterface> {
         return (
             <div className={classes.BuildControls}>
                 { controls.map((ctrl: any) => (
-                    <BuildControl key={ ctrl.label } label={ ctrl.label }/>   
+                    <BuildControl 
+                        key={ ctrl.label } 
+                        label={ ctrl.label } 
+                        // added={() => this.props.ingredientAdded(ctrl.type)}/>  
+                        added={() => this.props.ingredientAdded()}/> 
                 )) }
             </div>
         );
