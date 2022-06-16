@@ -4,6 +4,7 @@ import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import { Props } from '../../interfaces/Props';
 import { BurgerBuilderInterface } from '../../interfaces/BurgerBuilderInterface';
+import { IngredientsObjectKeys } from "../../interfaces/IngredientsObjectKeys";
 
 const INGREDIENT_PRICES = {
     salad: 0.5,
@@ -12,41 +13,49 @@ const INGREDIENT_PRICES = {
     bacon: 0.7
 }
 
+
 class BurgerBuilder extends Component<Props, BurgerBuilderInterface> {
+    
     constructor(props: BurgerBuilderInterface) {
         super(props);
+        
         this.state = {
             ingredients: {
-                salad: 1,
-                bacon: 1,
-                cheese: 2,
-                meat: 2 
+                salad: 0,
+                bacon: 0,
+                cheese: 0,
+                meat: 0 
             },
             totalPrice: 4
         }
-
-        addIngredientHandler = (type: string) => {
-            const oldCount = this.state.ingredients[type];
-            const updatedCount = oldCount + 1;
-            const updatedIngredients = {
-                ...this.state.ingredients
-            }
-            updatedIngredients[type] = updatedCount;
-            const priceAddition = INGREDIENT_PRICES;
-            const oldPrice = this.state.totalPrice;
-            const newPrice = oldPrice + priceAddition;
-            this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
-        }
-
-        // removeIngredientHandler = (type: string) => {
-        // }
     }
+
+    addIngredientHandler = (type: number): void => {
+
+        const oldCount:number = this.state.ingredients[type];
+        const updatedCount:number = oldCount + 1;
+        const updatedIngredients: IngredientsObjectKeys = {
+            ...this.state.ingredients
+        }
+        updatedIngredients[type] = updatedCount;
+        // const priceAddition = INGREDIENT_PRICES;
+        const oldPrice:number = this.state.totalPrice !== undefined ? this.state.totalPrice : 0;
+        const newPrice:number = oldPrice + INGREDIENT_PRICES.cheese;
+
+        console.log(newPrice.toFixed(2));
+
+        this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
+
+    }      
+
+    // removeIngredientHandler = (type: string) => {
+    // }
 
     render() {
         return (
             <Aux>
                 <Burger ingredients={this.state.ingredients}/>
-                <BuildControls ingredientAdded={this.addIngredientHandler()} />
+                <BuildControls ingredientAdded={this.addIngredientHandler} />
             </Aux>
         );
     }

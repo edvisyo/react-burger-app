@@ -1,4 +1,3 @@
 export interface BuildControlsInterface {
-    // ctrl: string;
-    ingredientAdded(): string,
+    ingredientAdded: (val: number) => void;
 }
