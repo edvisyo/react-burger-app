@@ -26,8 +26,11 @@ class BuildControls extends Component<BuildControlsInterface> {
                         added={() => this.props.ingredientAdded(ctrl.type)}
                         removed={() => this.props.ingredientRemoved(ctrl.type)} 
                         disabled={() => this.props.disabled(ctrl.type)} />
-                        //disabled={this.props.disabled} /> 
                 )) }
+                <button 
+                    className={classes.OrderButton}
+                    disabled={!this.props.purchaseable}
+                    onClick={this.props.makeOrder}>ORDER NOW</button>
             </div>
         );
     }

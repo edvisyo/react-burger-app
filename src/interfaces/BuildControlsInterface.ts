@@ -3,4 +3,6 @@ export interface BuildControlsInterface {
     ingredientRemoved: (val: number) => void;
     disabled: (val: number) => boolean;
     price: number | undefined;
+    purchaseable: boolean | undefined;
+    makeOrder: () => void;
 }
