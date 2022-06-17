@@ -6,7 +6,7 @@ import { Props } from '../../interfaces/Props';
 import { BurgerBuilderInterface } from '../../interfaces/BurgerBuilderInterface';
 import { IngredientsObjectKeys } from "../../interfaces/IngredientsObjectKeys";
 
-const INGREDIENT_PRICES = {
+const INGREDIENT_PRICES: IngredientsObjectKeys = {
     salad: 0.5,
     cheese: 0.4,
     meat: 1.3,
@@ -38,12 +38,12 @@ class BurgerBuilder extends Component<Props, BurgerBuilderInterface> {
             ...this.state.ingredients
         }
         updatedIngredients[type] = updatedCount;
-        // const priceAddition = INGREDIENT_PRICES;
+        const priceAddition = INGREDIENT_PRICES[type];
         const oldPrice:number = this.state.totalPrice !== undefined ? this.state.totalPrice : 0;
-        const newPrice:number = oldPrice + INGREDIENT_PRICES.cheese;
+        const newPrice:number = oldPrice + priceAddition;
 
-        console.log(newPrice.toFixed(2));
-
+        console.log(newPrice.toFixed(2))
+        
         this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
 
     }      
