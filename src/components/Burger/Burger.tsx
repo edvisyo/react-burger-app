@@ -32,8 +32,6 @@ class Burger extends Component<BurgerBuilderInterface> {
         return(
             <div className={classes.Burger}>
                 <BurgerIngredient type="bread-top" />
-                {/* <BurgerIngredient type="cheese" />
-                <BurgerIngredient type="meat" /> */}
                 {this.convertIngredients()}
                 <BurgerIngredient type="bread-bottom" />
             </div>
