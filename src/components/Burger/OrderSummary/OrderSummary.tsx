@@ -1,12 +1,17 @@
 import React from "react";
 import Aux from "../../../hoc/Aux";
+import { IngredientsObjectKeys } from '../../../interfaces/IngredientsObjectKeys';
 
-const orderSummary = (props: any) => {
+interface Ingredients {
+    ingredients: string;
+}
+
+const orderSummary = (props: Ingredients) => {
 
     const ingredientSummary = Object.keys(props.ingredients).map(ingredientKey => {
         return (
         <li key={ingredientKey}>
-            <span style={{textTransform: 'capitalize'}}>{ingredientKey}</span>: {props.ingredients[ingredientKey]}
+            <span style={{textTransform: 'capitalize'}}>{ingredientKey}</span>: {props.ingredients[ingredientKey as any]}
         </li>
         );
     });
@@ -19,6 +24,8 @@ const orderSummary = (props: any) => {
                 {ingredientSummary}
             </ul>
             <p>Continue to Checkout?</p>
+            <button>CANCEL</button>
+            <button>CONTINUE</button>
         </Aux>
     );
 }

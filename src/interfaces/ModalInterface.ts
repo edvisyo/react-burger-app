@@ -1,4 +1,5 @@
 export interface ModalInterface {
     children?: JSX.Element;
-    show: boolean | undefined;
+    show?: boolean;
+    modalClose(): void;
 }
