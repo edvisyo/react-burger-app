@@ -1,12 +1,11 @@
 import React from "react";
 import Aux from "../../../hoc/Aux";
 import { IngredientsObjectKeys } from '../../../interfaces/IngredientsObjectKeys';
+import { OrderSummaryInterface } from "../../../interfaces/OrderSummaryInterface";
+import Button from '../../UI/Button/Button';
 
-interface Ingredients {
-    ingredients: string;
-}
 
-const orderSummary = (props: Ingredients) => {
+const orderSummary = (props: OrderSummaryInterface) => {
 
     const ingredientSummary = Object.keys(props.ingredients).map(ingredientKey => {
         return (
@@ -23,9 +22,10 @@ const orderSummary = (props: Ingredients) => {
             <ul>
                 {ingredientSummary}
             </ul>
+            <p><strong>Total price: {props.price.toFixed(2)} &euro;</strong></p>
             <p>Continue to Checkout?</p>
-            <button>CANCEL</button>
-            <button>CONTINUE</button>
+            <Button btnType="Danger" clicked={props.purchaseCancelled}>CANCEL</Button>
+            <Button btnType="Success" clicked={props.purchaseContinued}>CONTINUE</Button>
         </Aux>
     );
 }

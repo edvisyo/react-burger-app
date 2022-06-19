@@ -1,10 +1,10 @@
 import React from "react";
-import classes from './Button.css'
+import classes from './Button.css';
 
 interface Button {
     btnType: string;
-    clicked(): boolean;
-    children: boolean;
+    clicked(): void;
+    children: string;
 }
 
 const button = (props:Button) => (
