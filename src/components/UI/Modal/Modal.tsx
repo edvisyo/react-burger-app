@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ModalInterface } from '../../../interfaces/ModalInterface';
-import Aux from "../../../hoc/Aux";
+import Aux from "../../../hoc/Aux/Aux";
 import Backdrop from "../Backdrop/Backdrop";
 import classes from './Modal.css';
 
@@ -8,6 +8,18 @@ class Modal extends Component<ModalInterface> {
     constructor(props: ModalInterface) {
         super(props);
     }
+
+    shouldComponentUpdate(nextProps:any) {
+        return nextProps.show !== this.props.show;
+    }
+    // getSnapshotBeforeUpdate(nextProps:any) {
+    //     return nextProps.show !== this.props.show;
+    //   }
+
+    componentDidUpdate(): void {
+        console.log('[Modal] Will Update!');
+    }
+
     render() {
         return(
             <Aux>

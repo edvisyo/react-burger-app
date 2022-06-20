@@ -1,27 +1,37 @@
 import React, { Component } from "react";
-import Aux from '../../hoc/Aux';
+import Aux from '../Aux/Aux';
 import classes from './Layout.css';
 import { ChildrenInterface } from "../../interfaces/ChildrenInterface";
-import Toolbar from "../Navigation/Toolbar/Toolbar";
-import SideDrawer from "../Navigation/SideDrawer/SideDrawer";
+import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
+import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
 
-class Layout extends Component<ChildrenInterface> {
+interface sideDrawerInterface {
+    showSideDrawer: boolean;
+}
+
+class Layout extends Component<ChildrenInterface, sideDrawerInterface> {
     constructor(props: ChildrenInterface) {
         super(props);
     }
 
     state = {
-        showSideDrawer: true
+        showSideDrawer: false
     }
 
     sideDrawerClosedHandler = () => {
         this.setState({showSideDrawer: false});
     }
 
+    sideDrawerToggleHandler = () => {
+        this.setState((prevState) => {
+            return {showSideDrawer: !prevState.showSideDrawer}
+        });
+    }
+
     render() {
         return (
             <Aux>
-                <Toolbar />
+                <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
                 <SideDrawer open={this.state.showSideDrawer} closed={this.sideDrawerClosedHandler}/>
                 <main className={classes.Content}>
                     {this.props.children}
