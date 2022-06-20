@@ -7,6 +7,8 @@ import { BurgerBuilderInterface } from '../../interfaces/BurgerBuilderInterface'
 import { IngredientsObjectKeys } from "../../interfaces/IngredientsObjectKeys";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
+import axios from "../../axios-orders";
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 const INGREDIENT_PRICES: IngredientsObjectKeys = {
     salad: 0.5,
@@ -30,7 +32,8 @@ class BurgerBuilder extends Component<Props, BurgerBuilderInterface> {
             },
             totalPrice: 4,
             purchaseable: false,
-            purchasing: false
+            purchasing: false,
+            loading: false
         }
     }
 
@@ -99,18 +102,47 @@ class BurgerBuilder extends Component<Props, BurgerBuilderInterface> {
         this.setState({purchasing: false});
     }
 
+    isLoading() {
+        if(this.state.loading) {
+            return <Spinner />
+        } else {
+            return <OrderSummary ingredients={this.state.ingredients}
+            purchaseCancelled={this.purchaseCancelHandler}
+            purchaseContinued={this.purchaseContinueHandler}
+            price={this.state.totalPrice!} />
+        }
+    }
+
     purchaseContinueHandler = () => {
-        alert('You continue!');
+        // Firebase Databse Connection
+        this.setState({loading: true})
+        const order = {
+            ingredients: this.state.ingredients,
+            price: this.state.totalPrice,
+            customer: {
+                name: 'Maria',
+                address: {
+                    street: 'Main st. 42',
+                    zipCode: '41351',
+                    country: 'United States'
+                },
+                email: 'maria@yahoo.com'
+            },
+            deliveryMethod: 'fastest'
+        }
+        
+        axios.post('/orders.json', order).then(response => {
+            this.setState({loading: false, purchasing: false});
+        }).catch(error => {
+            this.setState({loading: false, purchasing: false});
+        });
     }
 
     render() {
         return (
             <Aux>
                 <Modal show={this.state.purchasing} modalClose={this.purchaseCancelHandler}>
-                    <OrderSummary ingredients={this.state.ingredients}
-                                  purchaseCancelled={this.purchaseCancelHandler}
-                                  purchaseContinued={this.purchaseContinueHandler}
-                                  price={this.state.totalPrice!} />
+                    {this.isLoading()}              
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BuildControls 

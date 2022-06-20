@@ -4,4 +4,5 @@ export interface BurgerBuilderInterface {
     price?: number;
     purchaseable?: boolean;
     purchasing?: boolean;
+    loading?: boolean;
 }
