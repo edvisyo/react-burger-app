@@ -8,17 +8,25 @@ const withErrorHandler = (WrappedComponent:any, axios: AxiosInstance) => {
     return class extends Component {
 
         state = {
-            error: null
+            error: null,
+            requestInterceptors: 0,
+            responseInterceptors: 0
         }
 
-        componentDidMount() {
-            axios.interceptors.request.use((request: AxiosRequestConfig) => {
+        // UNSAFE lifecycle hook!
+        componentWillMount() {
+            this.state.requestInterceptors = axios.interceptors.request.use((request: AxiosRequestConfig) => {
                 this.setState({error: null});
                 return request;
             });
-            axios.interceptors.response.use((response: AxiosResponse) => response, (error:string) => {
+            this.state.responseInterceptors = axios.interceptors.response.use((response: AxiosResponse) => response, (error:string) => {
                 this.setState({error: error});
             });
+        }
+
+        componentWllUnmount() {
+            axios.interceptors.request.eject(this.state.requestInterceptors);
+            axios.interceptors.response.eject(this.state.responseInterceptors);
         }
 
         errorConfirmedHandler = () => {
