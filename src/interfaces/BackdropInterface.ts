@@ -1,4 +1,4 @@
 export interface BackdropInterface {
-    show?: boolean;
+    show?: boolean | null;
     clicked(): void;
 }

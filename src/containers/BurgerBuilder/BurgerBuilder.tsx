@@ -7,6 +7,7 @@ import { BurgerBuilderInterface } from '../../interfaces/BurgerBuilderInterface'
 import { IngredientsObjectKeys } from "../../interfaces/IngredientsObjectKeys";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
+import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import axios from "../../axios-orders";
 import Spinner from '../../components/UI/Spinner/Spinner';
 
@@ -102,7 +103,7 @@ class BurgerBuilder extends Component<Props, BurgerBuilderInterface> {
         this.setState({purchasing: false});
     }
 
-    isLoading() {
+    makeOrder() {
         if(this.state.loading) {
             return <Spinner />
         } else {
@@ -142,7 +143,7 @@ class BurgerBuilder extends Component<Props, BurgerBuilderInterface> {
         return (
             <Aux>
                 <Modal show={this.state.purchasing} modalClose={this.purchaseCancelHandler}>
-                    {this.isLoading()}              
+                    {this.makeOrder()}              
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BuildControls 
@@ -157,4 +158,4 @@ class BurgerBuilder extends Component<Props, BurgerBuilderInterface> {
     }
 }
 
-export default BurgerBuilder;
+export default withErrorHandler(BurgerBuilder, axios);
