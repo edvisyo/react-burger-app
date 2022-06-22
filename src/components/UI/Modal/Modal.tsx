@@ -9,12 +9,9 @@ class Modal extends Component<ModalInterface> {
         super(props);
     }
 
-    shouldComponentUpdate(nextProps:any) {
+    shouldComponentUpdate(nextProps: ModalInterface): boolean {
         return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
     }
-    // getSnapshotBeforeUpdate(nextProps:any) {
-    //     return nextProps.show !== this.props.show;
-    //   }
 
     componentDidUpdate(): void {
         console.log('[Modal] Will Update!');

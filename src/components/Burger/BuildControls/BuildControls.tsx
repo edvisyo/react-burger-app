@@ -19,13 +19,13 @@ class BuildControls extends Component<BuildControlsInterface> {
         return (
             <div className={classes.BuildControls}>
                 <p>Current price is: <strong>{this.props.price?.toFixed(2)}</strong> &euro;</p>
-                { controls.map((ctrl: any) => (
+                { controls.map(ctrl => (
                     <BuildControl 
                         key={ ctrl.label } 
                         label={ ctrl.label }  
                         added={() => this.props.ingredientAdded(ctrl.type)}
-                        removed={() => this.props.ingredientRemoved(ctrl.type)} 
-                        disabled={() => this.props.disabled(ctrl.type)} />
+                        removed={() => this.props.ingredientRemoved(ctrl.type)}
+                        disabledButton={() => this.props.disabled!(ctrl.type)} />
                 )) }
                 <button 
                     className={classes.OrderButton}

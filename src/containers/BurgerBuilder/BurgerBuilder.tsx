@@ -26,7 +26,7 @@ class BurgerBuilder extends Component<Props, BurgerBuilderInterface> {
         super(props);
         
         this.state = {
-            ingredients: null,
+            ingredients: null!,
             totalPrice: 4,
             purchaseable: false,
             purchasing: false,
@@ -43,7 +43,7 @@ class BurgerBuilder extends Component<Props, BurgerBuilderInterface> {
         })
     }
 
-    updatePurchaseState(ingredients: any): void {
+    updatePurchaseState(ingredients: IngredientsObjectKeys): void {
         //Get values from ingredients object (like 0->1, 0->2 etc...)
         const sum = Object.keys(ingredients).map(ingredientKey => {
             return ingredients[ingredientKey];
@@ -70,7 +70,7 @@ class BurgerBuilder extends Component<Props, BurgerBuilderInterface> {
 
     }      
 
-    removeIngredientHandler = (type: string) => {
+    removeIngredientHandler = (type: string): void => {
         
         const oldCount:number = this.state.ingredients[type];
         if(oldCount <= 0) {
@@ -95,7 +95,7 @@ class BurgerBuilder extends Component<Props, BurgerBuilderInterface> {
         };
 
         for( let key in disabledInfo) {
-            disabledInfo[key] = disabledInfo[key] <= 0;
+            disabledInfo[key] = disabledInfo[key] = 0;
             return disabledInfo[key];
         };
     }
@@ -118,7 +118,7 @@ class BurgerBuilder extends Component<Props, BurgerBuilderInterface> {
                     <BuildControls 
                         ingredientAdded={this.addIngredientHandler} 
                         ingredientRemoved={this.removeIngredientHandler}
-                        disabled={this.disableButton()} 
+                        disabledButton={this.disableButton()} 
                         price={this.state.totalPrice}
                         purchaseable={this.state.purchaseable}
                         makeOrder={this.purchaseHandler} />

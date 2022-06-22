@@ -1,5 +1,7 @@
+import { IngredientsObjectKeys } from '../interfaces/IngredientsObjectKeys';
+
 export interface BurgerBuilderInterface {
-    ingredients?: any;
+    ingredients: IngredientsObjectKeys;
     totalPrice?: number;
     price?: number;
     purchaseable?: boolean;
