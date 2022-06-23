@@ -3,4 +3,5 @@ export interface BuildControlInterface {
     added(): void;
     removed(): void;
     disabledButton(): boolean;
+    // disabled?: boolean
 }

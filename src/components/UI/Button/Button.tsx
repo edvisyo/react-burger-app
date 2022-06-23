@@ -3,8 +3,8 @@ import classes from './Button.css';
 
 interface Button {
     btnType: string;
-    clicked(): void;
-    children: string;
+    clicked?(): void;
+    children?: string;
 }
 
 const button = (props:Button) => (

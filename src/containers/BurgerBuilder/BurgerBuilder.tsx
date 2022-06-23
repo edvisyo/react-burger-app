@@ -11,6 +11,7 @@ import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import axios from "../../axios-orders";
 import Spinner from '../../components/UI/Spinner/Spinner';
 import { AxiosResponse } from "axios";
+import { useNavigate } from "react-router-dom";
 
 const INGREDIENT_PRICES: IngredientsObjectKeys = {
     salad: 0.5,
@@ -139,29 +140,37 @@ class BurgerBuilder extends Component<Props, BurgerBuilderInterface> {
     }
 
     purchaseContinueHandler = () => {
-        // Firebase Databse Connection
-        this.setState({loading: true})
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Maria',
-                address: {
-                    street: 'Main st. 42',
-                    zipCode: '41351',
-                    country: 'United States'
-                },
-                email: 'maria@yahoo.com'
-            },
-            deliveryMethod: 'fastest'
-        }
-        
-        axios.post('/orders.json', order).then((response: AxiosResponse) => {
-            this.setState({loading: false, purchasing: false});
-        }).catch(error => {
-            this.setState({loading: false, purchasing: false});
-        });
+        // let navigate = useNavigate();
+        // navigate('/checkout', {replace: true})
+        // this.props.history.push('/checkout')
     }
+    // purchaseContinueHandler = () => {
+    //     let history = useHistory();
+    //     history.push('/checkout');
+
+        // Firebase Databse Connection
+        // this.setState({loading: true})
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price: this.state.totalPrice,
+        //     customer: {
+        //         name: 'Maria',
+        //         address: {
+        //             street: 'Main st. 42',
+        //             zipCode: '41351',
+        //             country: 'United States'
+        //         },
+        //         email: 'maria@yahoo.com'
+        //     },
+        //     deliveryMethod: 'fastest'
+        // }
+        
+        // axios.post('/orders.json', order).then((response: AxiosResponse) => {
+        //     this.setState({loading: false, purchasing: false});
+        // }).catch(error => {
+        //     this.setState({loading: false, purchasing: false});
+        // });
+    // }
 
     render() {
         return (
