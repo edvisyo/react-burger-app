@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from "../../hoc/Layout/Layout";
-import BurgerBuilder from '../../containers/BurgerBuilder/BurgerBuilder';
-// import BurgerBuilderr from '../../containers/BurgerBuilder/BurgerBuilderr';
+//import BurgerBuilder from '../../containers/BurgerBuilder/BurgerBuilder';
+import BurgerBuilderr from '../../containers/BurgerBuilder/BurgerBuilderr';
 import Checkout from '../../containers/BurgerBuilder/Checkout/Checkout';
 
 class App extends Component {
@@ -15,7 +15,7 @@ class App extends Component {
           </Layout> */}
           <Layout>
             <Routes>
-              <Route path="/" element={<BurgerBuilder />} />
+              <Route path="/" element={<BurgerBuilderr />} />
               <Route path="/checkout" element={<Checkout />} />
             </Routes>
           </Layout>

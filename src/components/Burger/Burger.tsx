@@ -11,8 +11,8 @@ class Burger extends Component<BurgerBuilderInterface> {
     
     // Converting ingredients object into array
     convertIngredients() {
-        let transformedIngredients = Object.keys(this.props.ingredients).map(ingredientKey => {
-            return [...Array(this.props.ingredients[ingredientKey])].map((_, index) => {
+        let transformedIngredients = Object.keys(this.props.ingredients!).map(ingredientKey => {
+            return [...Array(this.props.ingredients![ingredientKey])].map((_, index) => {
                 return <BurgerIngredient key={ingredientKey + index} type={ingredientKey} />
             });
         }).reduce((arr, el) => {
