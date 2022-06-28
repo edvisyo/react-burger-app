@@ -1,6 +1,6 @@
 export interface ModalInterface {
     children?: JSX.Element;
     show?: boolean | null;
-    // show?(): void;
+    //show?(): boolean | null;
     modalClose(): void;
 }

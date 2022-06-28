@@ -23,7 +23,6 @@ const BurgerBuilderr = (props: BurgerBuilderInterface) => {
         bacon: 0.7
     }
 
-    // let [show, setShow] = useState(false);
     let [purchasing, setPurchasing] = useState(false);
     let [ingredients, setIngredients] = useState({});
     let [loading, setLoading] = useState(false);
@@ -39,7 +38,7 @@ const BurgerBuilderr = (props: BurgerBuilderInterface) => {
 
     useEffect(() => {
         getIngredients();
-    }, [])
+    }, []);
     
     const updatePurchaseState = (ingredients: IngredientsObjectKeys) => {
         //Get values from ingredients object (like 0->1, 0->2 etc...)
@@ -50,8 +49,9 @@ const BurgerBuilderr = (props: BurgerBuilderInterface) => {
         }, 0);
         if(sum > 0) {
             setPurchaseStatus(true);
+        } else {
+            setPurchaseStatus(false);
         }
-        // this.setState({purchaseable: sum > 0});
     }
 
     const addIngredientHandler = (type: string): void => {
@@ -68,7 +68,6 @@ const BurgerBuilderr = (props: BurgerBuilderInterface) => {
         
         setNewTotal(totalPrice = newPrice);
         setIngredients(ingredients = updatedIngredients);
-        // this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
         updatePurchaseState(updatedIngredients);
     }
 
@@ -89,7 +88,6 @@ const BurgerBuilderr = (props: BurgerBuilderInterface) => {
         
         setNewTotal(totalPrice = newPrice);
         setIngredients(ingredients = updatedIngredients);
-        // this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
         updatePurchaseState(updatedIngredients);
     }
 
@@ -105,17 +103,11 @@ const BurgerBuilderr = (props: BurgerBuilderInterface) => {
     // }
 
     const purchaseHandler = () => {
-        setPurchaseStatus(true);
+        setPurchasing(true);
     }
 
     const purchaseCancelHandler = () => {
-        setPurchasing(purchasing);
-        console.log('dissmisedqww');
-    }
-
-    const showModal = () => {
-        setPurchasing(purchasing = true);
-        console.log('clicked');
+        setPurchasing(false);
     }
 
     const loadBurgerAndControls = () => {
@@ -149,20 +141,23 @@ const BurgerBuilderr = (props: BurgerBuilderInterface) => {
     }
 
     const purchaseContinueHandler = () => {
-        navigate('/checkout', {replace: true})
+        const queryParams = [];
+        for(let i in ingredients) {
+            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(ingredients[i]));
+        }
+        const queryString = queryParams.join('&');
+        navigate({
+            pathname: '/checkout',
+            search: '?' + queryString
+        });
     }
-
-    // const dd = () => {
-    //     setPurchasing(purchasing = true);
-    // }
 
     return(
         <Aux>
-            <Modal show={false} modalClose={purchaseCancelHandler}>
+            <Modal show={purchasing} modalClose={purchaseCancelHandler}>
                 {makeOrder()}              
             </Modal>
             {loadBurgerAndControls()}
-            {/* <button onClick={() => dd()}>asd</button> */}
         </Aux>
     );
 }
