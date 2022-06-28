@@ -3,33 +3,25 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import CheckoutSummary from '../../../components/Order/CheckoutSummary/CheckoutSummary';
 import { IngredientsObjectKeys } from "../../../interfaces/IngredientsObjectKeys";
-import classes from './Checkout.css';
+import { Routes, Route } from "react-router-dom";
+import ContactData from "./ContactData/ContactData";
 
-interface CheckoutInterface {
-    ingredients?: IngredientsObjectKeys;
-}
 
-const Checkout = (props: CheckoutInterface) => {
+const Checkout = () => {
 
     const [ingredient, setIngredients] = useState({});
 
-    const ingredients: IngredientsObjectKeys = {
-        salad: 0,
-        bacon: 0,
-        cheese: 0,
-        meat: 0
-    }
+    const ingredients: IngredientsObjectKeys = {};
 
     const location = useLocation();
 
     const getURLIngredients = () => {
         const query = new URLSearchParams(location.search);
-        const ingredients = {};
         for(let params of query.entries()) {
            ingredients[params[0]] = +params[1]; 
         }
-        setIngredients({ingredient: ingredients});
-        console.log(ingredient);
+        setIngredients(ingredients)
+        console.log(ingredients);
     }
 
     useEffect(() => {
@@ -52,6 +44,9 @@ const Checkout = (props: CheckoutInterface) => {
                     ingredients={ingredients}
                     cancelCheckout={checkoutCancelHandler}
                     continueCheckout={checkoutContinueHandler} />
+            <Routes>
+                <Route path={'/contact-data'} element={<ContactData />}/> 
+            </Routes>       
         </div>
     );
 }
