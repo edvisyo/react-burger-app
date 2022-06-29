@@ -5,20 +5,70 @@ import classes from "./ContactData.css";
 import axios from "../../../axios-orders";
 import { AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
+import Input from "../../../components/UI/Forms/Input/Input";
 
 const ContactData = (props: any) => {
 
     const [loading, setLoading] = useState(false);
     const [purchasing, setPurchasing] = useState(true);
+    const [orderForm, setInputData] = useState({});
     const navigate = useNavigate();
 
     const state = {
-        name: '',
-        email: '',
-        address: {
-            street: '',
-            postalCode: ''
-        }
+        orderForm: {
+                name: {
+                    elementType: 'input',
+                    elementConfig: {
+                       type: 'text',
+                       placeholder: 'Your Name' 
+                    },
+                    value: ''
+                },
+                street: {
+                    elementType: 'input',
+                    elementConfig: {
+                       type: 'text',
+                       placeholder: 'Street' 
+                    },
+                    value: ''
+                },
+                zipCode: {
+                    elementType: 'input',
+                    elementConfig: {
+                       type: 'text',
+                       placeholder: 'ZIP Code' 
+                    },
+                    value: ''
+                },
+                country: {
+                    elementType: 'input',
+                    elementConfig: {
+                       type: 'text',
+                       placeholder: 'Country' 
+                    },
+                    value: ''
+                },
+                email: {
+                    elementType: 'input',
+                    elementConfig: {
+                       type: 'email',
+                       placeholder: 'Your E-mail' 
+                    },
+                    value: ''
+                },
+                deliveryMethod: {
+                    elementType: 'select',
+                    elementConfig: {
+                       options: [
+                           {value: 'fastest', displayValue: 'Fastest'},
+                           {value: 'normal', displayValue: 'Normal'},
+                           {value: 'cheapest', displayValue: 'Cheapest'},
+                        ]
+                    },
+                    value: ''
+                }
+            },
+            loading: false   
     }
 
     // const orderHandler = (event: Event) => {
@@ -30,16 +80,16 @@ const ContactData = (props: any) => {
         const order = {
             ingredients: props.ingredients,
             price: props.price,
-            customer: {
-                name: 'Maria',
-                address: {
-                    street: 'Main st. 42',
-                    zipCode: '41351',
-                    country: 'United States'
-                },
-                email: 'maria@yahoo.com'
-            },
-            deliveryMethod: 'fastest'
+            // customer: {
+            //     name: 'Maria',
+            //     address: {
+            //         street: 'Main st. 42',
+            //         zipCode: '41351',
+            //         country: 'United States'
+            //     },
+            //     email: 'maria@yahoo.com'
+            // },
+            // deliveryMethod: 'fastest'
         }
         
         axios.post('/orders.json', order).then((response: AxiosResponse) => {
@@ -52,13 +102,39 @@ const ContactData = (props: any) => {
         });
     }
 
-    const checkFormStatus = () => {
+    const formElementsArray = [];
+    for(let key in state.orderForm) {
+        formElementsArray.push({
+            id: key,
+            config: state.orderForm[key]
+        });
+    }
+
+    const inputChangedHandler = (event, inputIdentifier) => {
+        const updatedOrderForm = {
+            ...state.orderForm
+        }
+        const updatedFormElement = {...updatedOrderForm[inputIdentifier]}
+        updatedFormElement.value = event.target.value;
+        updatedOrderForm[inputIdentifier] = updatedFormElement;
+        // setInputData({orderForm: updatedOrderForm});
+        setInputData({orderForm: updatedOrderForm});
+    }
+
+    const loadForm = () => {
         let form = (
             <form>
-                <input className={classes.Input} type="text" name="name" placeholder="Your Name" />
-                <input className={classes.Input} type="email" name="email" placeholder="Your Mail" />
-                <input className={classes.Input} type="text" name="street" placeholder="Street" />
-                <input className={classes.Input} type="text" name="postal" placeholder="Postal Code" />
+                {/* <Input elementType="..." elementConfig="..." value="..." /> */}
+                {formElementsArray.map((formElement, index) => (
+                    <Input key={index} 
+                           elementType={formElement.config.elementType} 
+                           elementConfig={formElement.config.elementConfig} 
+                           value={formElement.config.value}
+                           changed={(event: Event) => inputChangedHandler(event, formElement.id)} />
+                ))}
+                {/* <Input inputtype="input" type="email" name="email" placeholder="Your Mail" />
+                <Input inputtype="input" type="text" name="street" placeholder="Street" />
+                <Input inputtype="input" type="text" name="postal" placeholder="Postal Code" /> */}
                 <br />
                 <Button btnType="Success" clicked={orderHandler}>ORDER</Button>
             </form>
@@ -73,7 +149,7 @@ const ContactData = (props: any) => {
     return(
         <div className={classes.ContactData}>
             <h4>Enter your Contact Data</h4>
-            {checkFormStatus()}
+            {loadForm()}
         </div>
     );
 }
