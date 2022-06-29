@@ -145,6 +145,7 @@ const BurgerBuilderr = (props: BurgerBuilderInterface) => {
         for(let i in ingredients) {
             queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(ingredients[i]));
         }
+        queryParams.push('price=' + totalPrice)
         const queryString = queryParams.join('&');
         navigate({
             pathname: '/checkout',

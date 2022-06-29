@@ -1,15 +1,16 @@
 import React, { Component, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import CheckoutSummary from '../../../components/Order/CheckoutSummary/CheckoutSummary';
-import { IngredientsObjectKeys } from "../../../interfaces/IngredientsObjectKeys";
+import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
+import { IngredientsObjectKeys } from "../../interfaces/IngredientsObjectKeys";
 import { Routes, Route } from "react-router-dom";
 import ContactData from "./ContactData/ContactData";
 
 
 const Checkout = () => {
 
-    const [ingredient, setIngredients] = useState({});
+    let [ingredient, setIngredients] = useState({});
+    const [totalPrice, setPrice] = useState(0)
 
     const ingredients: IngredientsObjectKeys = {};
 
@@ -17,12 +18,18 @@ const Checkout = () => {
 
     const getURLIngredients = () => {
         const query = new URLSearchParams(location.search);
+        let price = 0;
         for(let params of query.entries()) {
-           ingredients[params[0]] = +params[1]; 
+            if(params[0] === 'price') {
+                price = params[1];
+            } else {
+                ingredients[params[0]] = +params[1]; 
+            }
         }
-        setIngredients(ingredients)
-        console.log(ingredients);
+        setIngredients(ingredient = ingredients);
+        setPrice(price);
     }
+    console.log(ingredient);
 
     useEffect(() => {
         getURLIngredients();
@@ -45,7 +52,7 @@ const Checkout = () => {
                     cancelCheckout={checkoutCancelHandler}
                     continueCheckout={checkoutContinueHandler} />
             <Routes>
-                <Route path={'/contact-data'} element={<ContactData />}/> 
+                <Route path={'/contact-data'} element={<ContactData ingredients={ingredient} price={totalPrice} />}/> 
             </Routes>       
         </div>
     );
