@@ -3,6 +3,7 @@ import Order from "../../components/Order/Order";
 import axios from "../../axios-orders";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import { AxiosResponse } from "axios";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 
 class Orders extends Component {
