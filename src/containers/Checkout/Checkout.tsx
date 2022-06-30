@@ -2,9 +2,18 @@ import React, { Component } from "react";
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 import { Route } from 'react-router-dom';
 import ContactData from "./ContactData/ContactData";
+import { History, Location } from 'history';
 
-class Checkout extends Component {
+interface CheckoutInterface {
+    history: History;
+    location: Location;
+}
 
+class Checkout extends Component<CheckoutInterface> {
+    constructor(props: CheckoutInterface) {
+        super(props);
+    }
+    
     state = {
         ingredients: null,
         price: '0'

@@ -7,5 +7,5 @@ export interface BurgerBuilderInterface {
     purchaseable?: boolean;
     purchasing?: boolean;
     loading?: boolean;
-    errorMessage?: boolean
+    errorMessage?: boolean;
 }
