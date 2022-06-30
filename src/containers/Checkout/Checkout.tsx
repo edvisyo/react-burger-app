@@ -18,7 +18,7 @@ const Checkout = () => {
 
     const getURLIngredients = () => {
         const query = new URLSearchParams(location.search);
-        let price = 0;
+        let price = '0';
         for(let params of query.entries()) {
             if(params[0] === 'price') {
                 price = params[1];
@@ -27,7 +27,7 @@ const Checkout = () => {
             }
         }
         setIngredients(ingredient = ingredients);
-        setPrice(price);
+        setPrice(parseFloat(price));
     }
     console.log(ingredient);
 

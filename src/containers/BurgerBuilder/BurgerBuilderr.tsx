@@ -2,7 +2,6 @@ import React, { Component, useEffect, useState } from "react";
 import Aux from '../../hoc/Aux/Aux';
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
-// import { Props } from '../../interfaces/Props';
 import { BurgerBuilderInterface } from '../../interfaces/BurgerBuilderInterface';
 import { IngredientsObjectKeys } from "../../interfaces/IngredientsObjectKeys";
 import Modal from "../../components/UI/Modal/Modal";
@@ -56,7 +55,7 @@ const BurgerBuilderr = (props: BurgerBuilderInterface) => {
 
     const addIngredientHandler = (type: string): void => {
 
-        const oldCount = ingredients[type];
+        const oldCount = ingredients[type as keyof typeof ingredients];
         const updatedCount:number = oldCount + 1;
         const updatedIngredients: IngredientsObjectKeys = {
             ...ingredients
@@ -73,7 +72,7 @@ const BurgerBuilderr = (props: BurgerBuilderInterface) => {
 
     const removeIngredientHandler = (type: string): void => {
         
-        const oldCount:number = ingredients[type];
+        const oldCount:number = ingredients[type as keyof typeof ingredients];
         if(oldCount <= 0) {
             return
         }
@@ -143,7 +142,7 @@ const BurgerBuilderr = (props: BurgerBuilderInterface) => {
     const purchaseContinueHandler = () => {
         const queryParams = [];
         for(let i in ingredients) {
-            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(ingredients[i]));
+            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(ingredients[i as keyof typeof ingredients]));
         }
         queryParams.push('price=' + totalPrice)
         const queryString = queryParams.join('&');

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import Button from "../../../components/UI/Button/Button";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import classes from "./ContactData.css";
@@ -6,8 +6,15 @@ import axios from "../../../axios-orders";
 import { AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
 import Input from "../../../components/UI/Forms/Input/Input";
+import { ObjectKeys } from "../../../interfaces/ObjectKeys";
+import { IngredientsObjectKeys } from "../../../interfaces/IngredientsObjectKeys";
 
-const ContactData = (props: any) => {
+interface ContactDataInterface {
+    ingredients: IngredientsObjectKeys;
+    price: number;
+}
+
+const ContactData = (props: ContactDataInterface) => {
 
     const [loading, setLoading] = useState(false);
     const [purchasing, setPurchasing] = useState(true);
@@ -80,16 +87,6 @@ const ContactData = (props: any) => {
         const order = {
             ingredients: props.ingredients,
             price: props.price,
-            // customer: {
-            //     name: 'Maria',
-            //     address: {
-            //         street: 'Main st. 42',
-            //         zipCode: '41351',
-            //         country: 'United States'
-            //     },
-            //     email: 'maria@yahoo.com'
-            // },
-            // deliveryMethod: 'fastest'
         }
         
         axios.post('/orders.json', order).then((response: AxiosResponse) => {
@@ -110,7 +107,7 @@ const ContactData = (props: any) => {
         });
     }
 
-    const inputChangedHandler = (event, inputIdentifier) => {
+    const inputChangedHandler = (event: ChangeEvent<HTMLInputElement>, inputIdentifier: ObjectKeys) => {
         const updatedOrderForm = {
             ...state.orderForm
         }
@@ -130,7 +127,7 @@ const ContactData = (props: any) => {
                            elementType={formElement.config.elementType} 
                            elementConfig={formElement.config.elementConfig} 
                            value={formElement.config.value}
-                           changed={(event: Event) => inputChangedHandler(event, formElement.id)} />
+                           changed={(event: ChangeEvent<HTMLInputElement>) => inputChangedHandler(event, formElement.id)} />
                 ))}
                 {/* <Input inputtype="input" type="email" name="email" placeholder="Your Mail" />
                 <Input inputtype="input" type="text" name="street" placeholder="Street" />
