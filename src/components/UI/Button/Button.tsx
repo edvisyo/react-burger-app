@@ -5,7 +5,7 @@ interface Button {
     btnType: string;
     clicked?(): void;
     children?: string;
-    disabled: boolean;
+    disabled?: boolean;
 }
 
 const button = (props:Button) => (

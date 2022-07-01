@@ -9,7 +9,7 @@ interface InputInterface {
     label?: string;
     changed?(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLTextAreaElement>): void;
     invalid: boolean;
-    shouldValidate: boolean;
+    shouldValidate: {};
     touched: boolean;
 }
 

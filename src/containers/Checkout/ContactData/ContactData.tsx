@@ -15,7 +15,7 @@ interface ContactDataInterface {
 }
 
 interface RulesobjectInterface {
-    [key: string]: number | string;
+    [key: string]: number | string | boolean;
 }
 
 class ContactData extends Component<ContactDataInterface> {
@@ -103,7 +103,8 @@ class ContactData extends Component<ContactDataInterface> {
                     },
                     value: 'fastest',
                     validation: {},
-                    valid: true
+                    valid: true,
+                    touched: true
                 }
             },
             formIsValid: false,
