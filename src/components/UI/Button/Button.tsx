@@ -5,10 +5,11 @@ interface Button {
     btnType: string;
     clicked?(): void;
     children?: string;
+    disabled: boolean;
 }
 
 const button = (props:Button) => (
-    <button className={[classes.Button, classes[props.btnType]].join(' ')} onClick={props.clicked}>{props.children}</button>
+    <button className={[classes.Button, classes[props.btnType]].join(' ')} onClick={props.clicked} disabled={props.disabled}>{props.children}</button>
 );
 
 export default button;

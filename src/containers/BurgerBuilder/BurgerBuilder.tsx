@@ -148,7 +148,7 @@ class BurgerBuilder extends Component<Props, BurgerBuilderInterface> {
 
         const queryString = queryParams.join('&');
 
-        this.props.history.push({
+        this.props.history!.push({
             pathname: '/checkout',
             search: '?' + queryString
         });

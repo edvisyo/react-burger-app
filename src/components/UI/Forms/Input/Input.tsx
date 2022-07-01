@@ -1,23 +1,31 @@
-import React, { ChangeEvent, ChangeEventHandler } from "react";
+import React, { ChangeEvent } from "react";
 import { ObjectKeys } from "../../../../interfaces/ObjectKeys";
 import classes from "./Input.css";
 
 interface InputInterface {
     elementType: string;
-    elementConfig: string;
+    elementConfig: {};
     value: string;
     label?: string;
     changed?(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLTextAreaElement>): void;
+    invalid: boolean;
+    shouldValidate: boolean;
+    touched: boolean;
 }
 
 const input = (props: InputInterface) => {
 
     let inputElement = null;
+    const inputClasses = [classes.InputElement];
+
+    if(props.invalid && props.shouldValidate && props.touched) {
+        inputClasses.push(classes.Invalid);
+    }
 
     switch(props.elementType) {
         case('input'):
             inputElement = <input 
-                className={classes.InputElement} 
+                className={inputClasses.join(' ')} 
                 {...props.elementConfig as {}} 
                 value={props.value}
                 onChange={props.changed}
@@ -25,7 +33,7 @@ const input = (props: InputInterface) => {
         break;    
         case('textarea'):
             inputElement = <textarea 
-                className={classes.InputElement} 
+                className={inputClasses.join(' ')} 
                 {...props.elementConfig as {}} 
                 value={props.value}
                 onChange={props.changed}
@@ -33,7 +41,7 @@ const input = (props: InputInterface) => {
         break;
         case('select'):
             inputElement = <select 
-                className={classes.InputElement}  
+                className={inputClasses.join(' ')}  
                 value={props.value}
                 onChange={props.changed}
                 >
@@ -44,7 +52,7 @@ const input = (props: InputInterface) => {
         break;
         default:
             inputElement = <input 
-                className={classes.InputElement} 
+                className={inputClasses.join(' ')} 
                 {...props.elementConfig as {}} 
                 value={props.value}
                 onChange={props.changed}
