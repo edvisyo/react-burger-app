@@ -1,5 +1,10 @@
 import { History } from 'history';
+import { IngredientsObjectKeys } from './IngredientsObjectKeys';
 
 export interface Props {
-    history?: History
+    ings?: IngredientsObjectKeys
+    history?: History;
+    price?: number;
+    onIngredientAdded?(): void;
+    onIngredientRemoved?(): void;
 }

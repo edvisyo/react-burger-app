@@ -7,11 +7,17 @@ import { AxiosResponse } from "axios";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Forms/Input/Input";
 import { History } from 'history';
+import { connect } from 'react-redux';
 
 interface ContactDataInterface {
-    ingredients: IngredientsObjectKeys;
+    ings: IngredientsObjectKeys;
     price: number;
     history?: History
+}
+
+interface State {
+    ingredients: IngredientsObjectKeys; 
+    totalPrice: number;
 }
 
 interface RulesobjectInterface {
@@ -120,7 +126,7 @@ class ContactData extends Component<ContactDataInterface> {
             formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier as keyof typeof this.state.orderForm].value;
         }
         const order = {
-            ingredients: this.props.ingredients,
+            ingredients: this.props.ings,
             price: this.props.price,
             orderData: formData
         }
@@ -206,7 +212,14 @@ class ContactData extends Component<ContactDataInterface> {
     }
 }
 
-export default ContactData;
+const mapStateToProps = (state: State) => {
+    return {
+        ings: state.ingredients,
+        price: state.totalPrice
+    }
+}
+
+export default connect(mapStateToProps)(ContactData);
 
 
 

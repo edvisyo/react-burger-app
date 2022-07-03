@@ -23,8 +23,8 @@ class BuildControls extends Component<BuildControlsInterface> {
                     <BuildControl 
                         key={ ctrl.label } 
                         label={ ctrl.label }  
-                        added={() => this.props.ingredientAdded(ctrl.type)}
-                        removed={() => this.props.ingredientRemoved(ctrl.type)}
+                        added={() => this.props.ingredientAdded!(ctrl.type)}
+                        removed={() => this.props.ingredientRemoved!(ctrl.type)}
                         disabledButton={() => this.props.disabled!(ctrl.type)} />
                 )) }
                 <button 
