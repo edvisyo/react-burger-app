@@ -1,6 +1,6 @@
-import { IngredientsObjectKeys } from "../interfaces/IngredientsObjectKeys";
+import { IngredientsObjectKeys } from "../../interfaces/IngredientsObjectKeys";
 // import * as actionTypes from "./actions";
-import { ActionType } from "./actions"
+import { ActionType } from "../actions/actionTypes"
 
 type actionType = {
     [key: string]: string

@@ -12,7 +12,7 @@ import axios from "../../axios-orders";
 import Spinner from '../../components/UI/Spinner/Spinner';
 import { AxiosResponse } from "axios";
 import { connect } from 'react-redux';
-import { ActionType } from '../../store/actions';
+import { ActionType } from '../../store/actions/actionTypes';
 
 // const INGREDIENT_PRICES: IngredientsObjectKeys = {
 //     salad: 0.5,

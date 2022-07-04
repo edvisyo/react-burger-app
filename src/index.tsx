@@ -4,7 +4,7 @@ import './index.css';
 import App from './components/App/App';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import reducer from './store/reducer';
+import reducer from './store/reducers/burgerBuilder';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
